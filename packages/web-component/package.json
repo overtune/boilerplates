@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "live-server src",
-		"lint": "./node_modules/.bin/eslint src",
+		"lint": "eslint src",
 		"typecheck": "tsc"
 	},
 	"author": "",
