@@ -1,25 +1,22 @@
-const HTMLElementBase =
-  typeof HTMLElement === "undefined" ? function() { } : HTMLElement;
-
 /**
  * WebComponent
  * @class
  * @constructor
  * @public
  */
-class WebComponent extends HTMLElementBase {
+class WebComponent extends HTMLElement {
   constructor() {
     super();
 
     /**
      * Bind methods to this
      */
-    this.initiateKundoChat = this.initiateKundoChat.bind(this);
+    this.onClick = this.onClick.bind(this);
 
     /**
      * @type {ShadowRoot}
      */
-    this.shadow = this.attachShadow({ mode: "open" });
+    this.shadow = this.attachShadow({ mode: 'open' });
   }
 
   /**
@@ -30,7 +27,7 @@ class WebComponent extends HTMLElementBase {
     /**
      * @type {string}
      */
-    this.text = this.getAttribute("text") || "My text";
+    this.text = this.getAttribute('text') || 'My text';
 
     // Render
     this.render();
@@ -38,12 +35,12 @@ class WebComponent extends HTMLElementBase {
     /**
      * @type {HTMLButtonElement | null}
      */
-    this.button = this.shadow.querySelector("button");
+    this.button = this.shadow.querySelector('button');
 
     // Attach event listeners
-    this.button &&
-      this.button.addEventListener("click", this.onClick);
-    );
+    if (this.button) {
+      this.button.addEventListener('click', this.onClick);
+    }
   }
 
   /**
@@ -51,15 +48,18 @@ class WebComponent extends HTMLElementBase {
    * Remove listeners.
    */
   disconnectedCallback() {
-    this.button &&
-      this.button.removeEventListener("click", this.onClick);
+    if (this.button) {
+      this.button.removeEventListener('click', this.onClick);
+    }
   }
 
   /**
    * On click callback.
+   * @param {Event & { target: HTMLButtonElement }} e - on click callback.
    */
   onClick(e) {
-    console.log('click');
+    /* eslint-disable-next-line no-console */
+    console.log(e, this.text);
   }
 
   /**
@@ -84,9 +84,8 @@ class WebComponent extends HTMLElementBase {
   }
 }
 
-if (typeof window !== "undefined") {
-  if (typeof window.customElements !== "undefined") {
-    window.customElements.define("web-component", WebComponent);
+if (typeof window !== 'undefined') {
+  if (typeof window.customElements !== 'undefined') {
+    window.customElements.define('web-component', WebComponent);
   }
 }
-export { };

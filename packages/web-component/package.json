@@ -1,14 +1,23 @@
 {
-  "name": "web-component",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "live-server src"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "live-server": "^1.2.2"
-  }
+	"name": "web-component",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "live-server src",
+		"lint": "./node_modules/.bin/eslint src",
+		"typecheck": "tsc"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "^8.54.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-plugin-import": "^2.29.0",
+		"live-server": "^1.2.2",
+		"typescript": "^5.3.2"
+	},
+	"dependencies": {
+		"tsc": "^2.0.4"
+	}
 }
