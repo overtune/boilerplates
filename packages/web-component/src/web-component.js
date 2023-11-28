@@ -84,8 +84,4 @@ class WebComponent extends HTMLElement {
   }
 }
 
-if (typeof window !== 'undefined') {
-  if (typeof window.customElements !== 'undefined') {
-    window.customElements.define('web-component', WebComponent);
-  }
-}
+window.customElements.define('web-component', WebComponent);
