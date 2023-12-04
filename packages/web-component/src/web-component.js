@@ -8,15 +8,7 @@ class WebComponent extends HTMLElement {
 	constructor() {
 		super();
 
-		/**
-		 * Bind methods to this
-		 */
-		this.onClick = this.onClick.bind(this);
-
-		/**
-		 * @type {ShadowRoot}
-		 */
-		this.shadow = this.attachShadow({ mode: 'open' });
+		this.attachShadow({ mode: 'open' });
 	}
 
 	/**
@@ -35,12 +27,8 @@ class WebComponent extends HTMLElement {
 		/**
 		 * @type {HTMLButtonElement | null}
 		 */
-		this.button = this.shadow.querySelector('button');
-
-		// Attach event listeners
-		if (this.button) {
-			this.button.addEventListener('click', this.onClick);
-		}
+		this.button = this.shadowRoot.querySelector('button');
+		this.button.addEventListener('click', this);
 	}
 
 	/**
@@ -48,14 +36,22 @@ class WebComponent extends HTMLElement {
 	 * Remove listeners.
 	 */
 	disconnectedCallback() {
-		if (this.button) {
-			this.button.removeEventListener('click', this.onClick);
-		}
+		this.button.removeEventListener('click', this);
 	}
 
 	/**
 	 * On click callback.
-	 * @param {Event & { target: HTMLButtonElement }} e - on click callback.
+	 * @param {Event} event - on click callback.
+	 */
+	handleEvent(event) {
+		this[`on${event.type.charAt(0).toUpperCase() + event.type.slice(1)}`](
+			event
+		);
+	}
+
+	/**
+	 * On click callback.
+	 * @param {Event} e - on click callback.
 	 */
 	onClick(e) {
 		/* eslint-disable-next-line no-console */
@@ -66,7 +62,7 @@ class WebComponent extends HTMLElement {
 	 * Renders the component html/css.
 	 */
 	render() {
-		this.shadow.innerHTML = `
+		this.shadowRoot.innerHTML = `
     <style>
         :host {
           --color: var(--wc-color, #333);
