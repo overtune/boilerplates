@@ -40,8 +40,10 @@ class WebComponent extends HTMLElement {
 	}
 
 	/**
-	 * On click callback.
-	 * @param {Event} event - on click callback.
+	 * handles all events, routes them to on`Eventname` for each.
+	 * E.g. a `click` event will call `this.onClick`,
+	 * a focus event will call `this.onFocus`.
+	 * @param {Event} event - event.
 	 */
 	handleEvent(event) {
 		this[`on${event.type.charAt(0).toUpperCase() + event.type.slice(1)}`](
